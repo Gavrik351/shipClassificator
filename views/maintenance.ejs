@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ремонт</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/register">Регистрация</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div class="container">
+      <h1>Корабли, нуждающиеся в ремонте</h1>
+      <form action="/repair" method="POST">
+        <table>
+          <tr>
+            <th>Название</th>
+            <th>Состояние</th>
+            <th>Стоимость</th>
+            <th>Выбрать</th>
+          </tr>
+          <% repairFleet.forEach((ship, index) => { %>
+            <tr>
+              <td><%= ship.name %></td>
+              <td><%= ship.state === 2 ? 'Нужен капремонт' : 'Нужна замена судна' %></td>
+              <td><%= ship.state === 2 ? C2 : C3 %></td>
+              <td><input type="checkbox" name="shipsToRepair" value="<%= index %>"></td>
+            </tr>
+          <% }) %>
+        </table>
+        <label for="budget">Доступный бюджет:</label>
+        <input type="number" id="budget" name="budget" required>
+        <button type="submit">Рассчитать</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p> </p>
+  </footer>
+</body>
+</html>
