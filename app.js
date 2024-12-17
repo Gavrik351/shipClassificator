@@ -51,18 +51,24 @@ app.post('/update', (req, res) => {
   let availableBudget = parseInt(budget);
   let remainingBudget = availableBudget;
   let workDescription = '';
-  
+  let counter = 1; // Счетчик для нумерации
+
   fleet.forEach(ship => {
     if (ship.state === 2 && remainingBudget >= C2) {
       ship.state = 1;
       remainingBudget -= C2;
-      workDescription += `${ship.name}: Капремонт выполнен на сумму 5000000 рублей\n`;
+      workDescription += `${counter}) ${ship.name}: Капремонт выполнен на сумму 5000000 рублей\n`;
+      counter++;
     } else if (ship.state === 3 && remainingBudget >= C3) {
       ship.state = 1;
       remainingBudget -= C3;
-      workDescription += `${ship.name}: Замена судна выполнена на сумму 15000000 рублей\n`;
+      workDescription += `${counter}) ${ship.name}: Замена судна выполнена на сумму 15000000 рублей\n`;
+      counter++;
     }
   });
+
+  // Удаляем последний лишний перенос строки (если требуется)
+  workDescription = workDescription.trim();
 
   res.render('index', { fleet, budget: availableBudget, remainingBudget, workDescription });
 });
